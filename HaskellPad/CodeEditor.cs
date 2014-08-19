@@ -57,14 +57,40 @@ namespace HaskellPad
 				OnFontDataChanged();
 			}
 		}
-		
+
+		[Dependency("diff")]
+		public Func<string[], string[], List<int>> Diff;
+
+		[Dependency("tag")]
+		public Func<string, ITagStats, Line> Tag;
+
+		public List<Line> Lines;
+
 		public CodeEditor()
 		{
 			InitializeComponent();
 			bndCodeEditor.DataSource = this;
 			measureRtb = new RichTextBox();
+			Lines = new List<Line>();
 
 			//Hooks for sub controls
+			string[] lastText = new string[0];
+			rtbCodeView.TextChanged += (s, args) =>
+			{
+				var diff = Diff(lastText, rtbCodeView.Lines);
+				lastText = rtbCodeView.Lines;
+				var newLines = new List<Line>();
+				for (var i = 0; i < diff.Count; ++i)
+				{
+					if (diff[i] != -1) newLines[i] = Lines[diff[i]];
+					else newLines[i] = Line.NewRaw(rtbCodeView.Lines[i]);
+				}
+			};
+		}
+
+		protected override void OnLoad(EventArgs e)
+		{
+			base.OnLoad(e);
 		}
 
 		protected void OnFontDataChanged()

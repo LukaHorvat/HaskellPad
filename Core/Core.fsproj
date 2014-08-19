@@ -47,7 +47,8 @@
   <ItemGroup>
     <Compile Include="Tagger.fsi" />
     <Compile Include="Tagger.fs" />
-    <None Include="Script.fsx" />
+    <Compile Include="Diff.fsi" />
+    <Compile Include="Diff.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.fsproj">

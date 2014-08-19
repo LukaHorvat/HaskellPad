@@ -1,4 +1,4 @@
-﻿module Core
+﻿module Tagger
 
 open Common
 open System.Collections.Generic
@@ -28,41 +28,50 @@ let startsWith (str : string) list =
     let len = str.Length
     let rec startsWithRec list i =
         if i = len then true
-        else match list with
+        else
+            match list with
             | []        -> false
             | x :: rest -> x = str.[i] && startsWithRec rest (i + 1)
     startsWithRec list 0
 
-type TagKind = Mismatch | TagContinuation of char list * char list * CommentCounter | TagEnd of char list * char list * CommentCounter
+type TagKind = Mismatch | Tag of char list * char list * CommentCounter
 
-let consumeMultilineComment stats str = 
-    match stats with
-    | OpenBraces n ->
-        if startsWith "-}" str then
-            let ctor = if n = 1 then TagEnd else TagContinuation 
-            ctor(List.take 2 str, List.drop 2 str, OpenBraces 0)
-        else if startsWith "{-" str then TagContinuation(List.take 2 str, List.drop 2 str, OpenBraces (n + 1))
-        else if n = 0 then Mismatch //We're not starting a comment and there isn't an ongoing one
-        else TagContinuation(List.take 1 str, List.tail str, stats)
+let consumeMultilineComment (OpenBraces n as stats) str =
+    if startsWith "-}" str then
+        Tag(List.take 2 str, List.drop 2 str, OpenBraces (n - 1))
+    else if startsWith "{-" str then Tag(List.take 2 str, List.drop 2 str, OpenBraces (n + 1))
+    else if n = 0 then Mismatch //We're not starting a comment and there isn't an ongoing one
+    else Tag(List.take 1 str, List.tail str, stats)
 
+let consumeText stats str = Tag(List.take 1 str, List.drop 1 str, stats)
 
-let addToLastTag acc char =
+let addToLastTag acc chars =
     match acc with
     | []                         -> failwith "Invalid operation"
-    | (current, tagName) :: rest -> (char :: current, tagName) :: rest
+    | (current, tagName) :: rest -> ((List.rev chars) @ current, tagName) :: rest
 
-let parseSubstring (stats, acc) str =
-    match stats with
-    | OpenBraces n when n > 0 ->
+let lastTagIs acc name =
+    match acc with
+    | []                         -> false
+    | (current, tagName) :: rest -> tagName = name
 
-let tag line (stats : ITagStats) =
-    let rec tagAcc line stats acc : Line =
-        match stats with
-        | OpenBraces n when n > 0 ->
-            let comm, rest, level = eatMultilineComment n line
-            if rest = "" then Tagged(List<string * string>((comm, "comment") :: acc), OpenBraces level)
-            else tagAcc rest (OpenBraces level) ((comm, "comment") :: acc)
-        | _                       ->
-            
+let parseSubstring (stats, (acc : (char list * string) list)) str =
+    let parsers = [(consumeMultilineComment, "comment"); (consumeText, "text")]
+    let rec firstMatch parsers =
+        match parsers with
+        | (parser, name) :: rest ->
+            let res = parser stats str
+            if res <> Mismatch then parser, name, res
+            else firstMatch rest
+        | []                     -> failwith "Invalid operation"
+    let parser, name, (Tag(take, drop, stats)) = firstMatch parsers
+    if lastTagIs acc name then (stats, addToLastTag acc take), drop
+    else (stats, (List.rev take, name) :: acc), drop
 
-    tagAcc line (stats :?> CommentCounter) []
+[<DependencyProvider("tag")>]
+let tag (str : string) (stats : ITagStats) =
+    let listStr = [for c in str -> c]
+    let braces = if stats = null then OpenBraces 0 else stats :?> CommentCounter
+    let (newStats, tagList) = splitFold parseSubstring (braces, []) listStr
+    let listForInterop = List.rev tagList |> List.map (fun (charList, name) -> System.String(List.rev charList |> List.toArray), name)
+    Tagged(List<string * string>(listForInterop), newStats)
