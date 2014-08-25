@@ -29,15 +29,12 @@ namespace HaskellPad
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			HaskellPad.Styling.EditorTheme editorTheme1 = new HaskellPad.Styling.EditorTheme();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.splitContainer2 = new System.Windows.Forms.SplitContainer();
 			this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-			this.ceCodeEditor = new HaskellPad.CodeEditor();
-			this.bndEditorTheme = new System.Windows.Forms.BindingSource(this.components);
 			this.listBox1 = new System.Windows.Forms.ListBox();
+			this.ceCodeEditor = new HaskellPad.CodeEditor();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -46,7 +43,6 @@ namespace HaskellPad
 			this.splitContainer2.Panel1.SuspendLayout();
 			this.splitContainer2.Panel2.SuspendLayout();
 			this.splitContainer2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.bndEditorTheme)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// statusStrip1
@@ -104,34 +100,6 @@ namespace HaskellPad
 			this.richTextBox2.TabIndex = 0;
 			this.richTextBox2.Text = "";
 			// 
-			// ceCodeEditor
-			// 
-			this.ceCodeEditor.CodeBackgroundColor = System.Drawing.Color.Empty;
-			this.ceCodeEditor.DataBindings.Add(new System.Windows.Forms.Binding("CodeBackgroundColor", this.bndEditorTheme, "CodeBackgroundColor", true));
-			this.ceCodeEditor.DataBindings.Add(new System.Windows.Forms.Binding("Font", this.bndEditorTheme, "Font", true));
-			this.ceCodeEditor.DataBindings.Add(new System.Windows.Forms.Binding("LineNumberBackgroundColor", this.bndEditorTheme, "LineNumberBackgroundColor", true));
-			this.ceCodeEditor.DataBindings.Add(new System.Windows.Forms.Binding("LineNumberTextColor", this.bndEditorTheme, "LineNumberTextColor", true));
-			this.ceCodeEditor.DataBindings.Add(new System.Windows.Forms.Binding("TabBackgroundColor", this.bndEditorTheme, "TabLabelBackgroundColor", true));
-			this.ceCodeEditor.DataBindings.Add(new System.Windows.Forms.Binding("TabLabelBackgroundColor", this.bndEditorTheme, "TabLabelBackgroundColor", true));
-			this.ceCodeEditor.DataBindings.Add(new System.Windows.Forms.Binding("TabLabelTextColor", this.bndEditorTheme, "TabLabelTextColor", true));
-			this.ceCodeEditor.DataBindings.Add(new System.Windows.Forms.Binding("TabLength", this.bndEditorTheme, "TabLength", true));
-			this.ceCodeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ceCodeEditor.LineNumberBackgroundColor = System.Drawing.Color.Empty;
-			this.ceCodeEditor.LineNumberTextColor = System.Drawing.Color.Empty;
-			this.ceCodeEditor.Location = new System.Drawing.Point(0, 0);
-			this.ceCodeEditor.Name = "ceCodeEditor";
-			this.ceCodeEditor.Size = new System.Drawing.Size(585, 359);
-			this.ceCodeEditor.TabBackgroundColor = System.Drawing.Color.Empty;
-			this.ceCodeEditor.TabIndex = 0;
-			this.ceCodeEditor.TabLabelBackgroundColor = System.Drawing.Color.Empty;
-			this.ceCodeEditor.TabLabelTextColor = System.Drawing.Color.Empty;
-			this.ceCodeEditor.TabLength = 0;
-			// 
-			// bndEditorTheme
-			// 
-			this.bndEditorTheme.DataSource = editorTheme1;
-			this.bndEditorTheme.Position = 0;
-			// 
 			// listBox1
 			// 
 			this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -141,6 +109,15 @@ namespace HaskellPad
 			this.listBox1.Name = "listBox1";
 			this.listBox1.Size = new System.Drawing.Size(777, 107);
 			this.listBox1.TabIndex = 0;
+			// 
+			// ceCodeEditor
+			// 
+			this.ceCodeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ceCodeEditor.Location = new System.Drawing.Point(0, 0);
+			this.ceCodeEditor.Name = "ceCodeEditor";
+			this.ceCodeEditor.Size = new System.Drawing.Size(585, 359);
+			this.ceCodeEditor.TabIndex = 0;
+			this.ceCodeEditor.TabLength = 0;
 			// 
 			// MainWindow
 			// 
@@ -159,7 +136,6 @@ namespace HaskellPad
 			this.splitContainer2.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
 			this.splitContainer2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.bndEditorTheme)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -172,7 +148,6 @@ namespace HaskellPad
 		private System.Windows.Forms.SplitContainer splitContainer2;
 		private System.Windows.Forms.RichTextBox richTextBox2;
 		private System.Windows.Forms.ListBox listBox1;
-		private System.Windows.Forms.BindingSource bndEditorTheme;
 		private CodeEditor ceCodeEditor;
 
 

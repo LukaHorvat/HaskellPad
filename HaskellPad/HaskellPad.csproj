@@ -51,6 +51,7 @@
     <Compile Include="CodeEditor.Designer.cs">
       <DependentUpon>CodeEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="IInjectable.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

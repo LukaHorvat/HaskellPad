@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -20,11 +21,16 @@ namespace HaskellPad
 		public MainWindow()
 		{
 			InitializeComponent();
+
 			DependencyProviders = new Dictionary<string, MethodInfo>();
 
 			//Resolve dependencies
 			PopulateProviders();
 			ResolveDependencies(this);
+			RaiseAfterInjection(this);
+			
+			var editor = new EditorTheme(File.ReadAllText("son-of-obsidian.vssettings"));
+			ceCodeEditor.LoadTheme(editor);
 		}
 
 		public void PopulateProviders()
@@ -67,7 +73,7 @@ namespace HaskellPad
 							if (prop is PropertyInfo) ((PropertyInfo)prop).SetValue(control, Delegate.CreateDelegate(type, mi));
 							if (prop is FieldInfo) ((FieldInfo)prop).SetValue(control, Delegate.CreateDelegate(type, mi));
 						}
-						catch (ArgumentException ex)
+						catch (ArgumentException)
 						{
 							throw new Exception("The provided dependency type is not compatible with the required type on type " + control.GetType() + " with dependency named " + attribute.matchName);
 						}
@@ -78,6 +84,16 @@ namespace HaskellPad
 					}
 				}
 				if (control is Control) ResolveDependencies((Control)control);
+			}
+		}
+
+		protected void RaiseAfterInjection(Control parent)
+		{
+			foreach (Control control in parent.Controls)
+			{
+				var injectable = control as IInjectable;
+				if (injectable != null) injectable.AfterInjection();
+				RaiseAfterInjection(control);
 			}
 		}
 	}

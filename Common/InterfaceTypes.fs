@@ -6,7 +6,7 @@ open System.Collections.Generic
 type ITagStats =
     abstract member ValueEqual : ITagStats -> bool
 
-type Line = Raw of string | Tagged of List<string * string> * ITagStats 
+type Line = Raw of string | Tagged of ITagStats * List<string * string> * ITagStats 
 
 /// <summary>
 /// Properties and field with this attribute will have their value set before the OnLoad.

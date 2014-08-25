@@ -28,16 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
 			this.flpTabView = new System.Windows.Forms.FlowLayoutPanel();
 			this.rtbCodeView = new System.Windows.Forms.RichTextBox();
-			this.bndCodeEditor = new System.Windows.Forms.BindingSource(this.components);
-			((System.ComponentModel.ISupportInitialize)(this.bndCodeEditor)).BeginInit();
+			this.lFocusLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// flpTabView
 			// 
-			this.flpTabView.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", this.bndCodeEditor, "TabBackgroundColor", true));
 			this.flpTabView.Dock = System.Windows.Forms.DockStyle.Top;
 			this.flpTabView.Location = new System.Drawing.Point(0, 0);
 			this.flpTabView.Name = "flpTabView";
@@ -48,36 +45,40 @@
 			// 
 			this.rtbCodeView.AcceptsTab = true;
 			this.rtbCodeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.rtbCodeView.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", this.bndCodeEditor, "CodeBackgroundColor", true));
-			this.rtbCodeView.DataBindings.Add(new System.Windows.Forms.Binding("Font", this.bndCodeEditor, "Font", true));
 			this.rtbCodeView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.rtbCodeView.Location = new System.Drawing.Point(0, 20);
 			this.rtbCodeView.Name = "rtbCodeView";
 			this.rtbCodeView.Size = new System.Drawing.Size(439, 209);
-			this.rtbCodeView.TabIndex = 2;
+			this.rtbCodeView.TabIndex = 3;
 			this.rtbCodeView.Text = "";
 			// 
-			// bndCodeEditor
+			// lFocusLabel
 			// 
-			this.bndCodeEditor.DataSource = typeof(HaskellPad.CodeEditor);
+			this.lFocusLabel.AutoSize = true;
+			this.lFocusLabel.Location = new System.Drawing.Point(300, 121);
+			this.lFocusLabel.Name = "lFocusLabel";
+			this.lFocusLabel.Size = new System.Drawing.Size(0, 13);
+			this.lFocusLabel.TabIndex = 4;
 			// 
 			// CodeEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.lFocusLabel);
 			this.Controls.Add(this.rtbCodeView);
 			this.Controls.Add(this.flpTabView);
 			this.Name = "CodeEditor";
 			this.Size = new System.Drawing.Size(439, 229);
-			((System.ComponentModel.ISupportInitialize)(this.bndCodeEditor)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.BindingSource bndCodeEditor;
 		private System.Windows.Forms.FlowLayoutPanel flpTabView;
 		private System.Windows.Forms.RichTextBox rtbCodeView;
+		private System.Windows.Forms.VScrollBar vScrollBar1;
+		private System.Windows.Forms.Label lFocusLabel;
 	}
 }

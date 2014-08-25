@@ -9,6 +9,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Core", "Core\Core.fsproj", 
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Common", "Common\Common.fsproj", "{76795263-AE2A-4FFE-9B59-85C9A12D5DAE}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TestingGrounds", "TestingGrounds\TestingGrounds.fsproj", "{75FBCAF7-60C6-42C6-9F5B-B47769B568CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{76795263-AE2A-4FFE-9B59-85C9A12D5DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76795263-AE2A-4FFE-9B59-85C9A12D5DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76795263-AE2A-4FFE-9B59-85C9A12D5DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75FBCAF7-60C6-42C6-9F5B-B47769B568CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75FBCAF7-60C6-42C6-9F5B-B47769B568CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75FBCAF7-60C6-42C6-9F5B-B47769B568CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75FBCAF7-60C6-42C6-9F5B-B47769B568CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
